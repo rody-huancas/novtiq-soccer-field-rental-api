@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 /* Libraries */
 import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 /* DTOs */
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
@@ -23,30 +23,58 @@ export class MenuService {
       /* Verificar si el nombre del menú ya existe */
       await checkExistence(this.menuRepository, 'me_name', me_name);
       
-      await this.menuRepository.save({ ...data, me_name });
+      const newMenu = await this.menuRepository.save({ ...data, me_name });
       
-      return {
-        message: `El menú '${me_name}' ha sido creado exitosamente`,
-        statusCode: 201
-      };
+      return newMenu;
     } catch (error) {
-      throw new Error(error);
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
 
   async findAll() {
-    return await this.menuRepository.find();
+    try {
+      const menus = await this.menuRepository.find();
+      return menus;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} menu`;
+  async findOne(id: string) {
+    try {
+      const menu = await this.menuRepository.findOne({ where: { me_id: id } });
+      if (!menu) {
+        throw new HttpException(`Menú con id '${id}' no encontrado.`, HttpStatus.NOT_FOUND);
+      }
+      return menu;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
-  update(id: number, updateMenuDto: UpdateMenuDto) {
-    return `This action updates a #${id} menu`;
+  async update(id: string, updateMenuDto: UpdateMenuDto) {
+    try {
+      const menu = await this.findOne(id);
+      
+      const { me_name, ...data } = updateMenuDto;
+
+      /* Verificar si el nombre del menú ya existe */
+      await checkExistence(this.menuRepository, 'me_name', me_name);
+      
+      const updatedMenu = await this.menuRepository.update(menu.me_id, { ...data, me_name });
+      return updatedMenu;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} menu`;
+  async remove(id: string) {
+    try {
+      const menu = await this.findOne(id);
+      await this.menuRepository.delete(menu.me_id);
+      return { message: `Menú ${menu.me_name} eliminado correctamente.` };
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 }
