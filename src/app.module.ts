@@ -7,15 +7,17 @@ import { typeOrmConfig } from '@lib/type-orm';
 import { LoggerMiddleware } from '@middlewares/Logger.middleware';
 /* Config */
 import { UseEnvironmentVariables } from '@config/env/env.enable';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [
     // configuración de variables de entorno
     UseEnvironmentVariables,
+    UsersModule,
     // configuración de TypeORM
     //  TypeOrmModule.forRoot(typeOrmConfig),
   ],
-  providers: [Logger],
+  providers: [ Logger ],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
