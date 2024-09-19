@@ -29,7 +29,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api/v1');
 
   await app.listen(PORT, () => {
-    logger.log(`[INFO] El servidor se ha iniciado en '${PUBLIC_URL}'`);
+    logger.log(`[INFO] El servidor se ha iniciado en '${PUBLIC_URL}:${PORT}'`);
   });
 }
 bootstrap();
