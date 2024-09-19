@@ -7,13 +7,24 @@ import { typeOrmConfig } from '@lib/type-orm';
 import { LoggerMiddleware } from '@middlewares/Logger.middleware';
 /* Config */
 import { UseEnvironmentVariables } from '@config/env/env.enable';
-import { UsersModule } from './modules/users/users.module';
+/* Modules */
+import { UsersModule } from '@modules/users/users.module';
+import { AuthModule } from '@modules/auth/auth.module';
+import { MenuModule } from './modules/menu/menu.module';
+import { RolesModule } from './modules/roles/roles/roles.module';
+import { PermissionsModule } from './modules/roles/permissions/permissions.module';
+import { RolePermissionsModule } from './modules/roles/role-permissions/role-permissions.module';
 
 @Module({
   imports: [
     // configuración de variables de entorno
     UseEnvironmentVariables,
     UsersModule,
+    AuthModule,
+    MenuModule,
+    RolesModule,
+    PermissionsModule,
+    RolePermissionsModule,
     // configuración de TypeORM
     //  TypeOrmModule.forRoot(typeOrmConfig),
   ],
