@@ -8,7 +8,7 @@ import { UpdateMenuDto } from './dto/update-menu.dto';
 /* Entities */
 import { Menu } from './entities/menu.entity';
 /* Utils */
-import { checkExistence } from '@utils/functions-validations.util';
+import { checkExistence } from '@root/src/utils/checkExistence';
 
 @Injectable()
 export class MenuService {

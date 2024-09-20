@@ -7,7 +7,7 @@ import { UpdatePermissionDto } from './dto/update-permission.dto';
 /* Entities */
 import { Permission } from './entities/permission.entity';
 /* Utils */
-import { checkExistence } from '@utils/functions-validations.util';
+import { checkExistence } from '@root/src/utils/checkExistence';
 
 @Injectable()
 export class PermissionsService {
