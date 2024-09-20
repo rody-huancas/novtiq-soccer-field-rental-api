@@ -1,25 +1,25 @@
 import { IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 /* Utils */
-import { validationMessages } from '@utils/messages-validations.util';
+import { IS_BOOLEAN, IS_REQUIRED, IS_STRING } from '@lib/class-validator/messages-validation';
 
 export class CreateMenuDto {
-  @IsString({ message: validationMessages.string('nombre del menú') })
-  @IsNotEmpty({ message: validationMessages.required('nombre del menú') })
+  @IsString({ message: IS_STRING('Nombre') })
+  @IsNotEmpty({ message: IS_REQUIRED('Nombre') })
   me_name: string;
 
-  @IsString({ message: validationMessages.string('descripción del menú') })
+  @IsString({ message: IS_STRING('Descripción') })
   @IsOptional()
   me_description: string;
 
-  @IsString({ message: validationMessages.string('URL del menú') })
-  @IsNotEmpty({ message: validationMessages.required('URL del menú') })
+  @IsString({ message: IS_STRING('URL') })
+  @IsNotEmpty({ message: IS_REQUIRED('URL') })
   me_url: string;
 
-  @IsString({ message: validationMessages.string('icono del menú') })
-  @IsNotEmpty({ message: validationMessages.required('icono del menú') })
+  @IsString({ message: IS_STRING('Icono') })
+  @IsNotEmpty({ message: IS_REQUIRED('Icono') })
   me_icon: string;
 
-  @IsBoolean({ message: validationMessages.boolean('estado del menú') })
-  @IsNotEmpty({ message: validationMessages.required('estado del menú') })
+  @IsBoolean({ message: IS_BOOLEAN('Estado') })
+  @IsNotEmpty({ message: IS_REQUIRED('Estado') })
   me_isActive: boolean;
 }
