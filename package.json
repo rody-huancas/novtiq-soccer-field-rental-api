@@ -1,10 +1,18 @@
 {
   "name": "novtiq-soccer-field-rental-api",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "API para la gestión de alquiler de canchas de fútbol",
   "private": true,
   "license": "UNLICENSED",
+  "author": {
+    "name": "NOVTIQ",
+    "email": "novtiq@gmail.com",
+    "url": "https://www.novtiq.com"
+  },
+  "contributors": [
+    "Rody Huancas"
+  ],
+
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -27,6 +35,7 @@
     "@nestjs/mapped-types": "^2.0.5",
     "@nestjs/passport": "^10.0.3",
     "@nestjs/platform-express": "^10.0.0",
+    "@nestjs/swagger": "^7.4.2",
     "@nestjs/typeorm": "^10.0.2",
     "@types/passport-jwt": "^4.0.1",
     "archiver": "^7.0.1",
@@ -45,8 +54,7 @@
     "rxjs": "^7.8.1",
     "stream-buffers": "^3.0.3",
     "streamifier": "^0.1.1",
-    "typeorm": "^0.3.20",
-    "xmlbuilder": "^15.1.1"
+    "typeorm": "^0.3.20"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",

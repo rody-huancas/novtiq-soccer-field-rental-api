@@ -1,8 +1,8 @@
 export interface UseLoggerMiddlewareParams {
-  ip: string;
-  host: string;
-  method: string;
-  userAgent: string;
+  ip         : string;
+  host       : string;
+  method     : string;
+  userAgent  : string;
   contentType: string;
   originalUrl: string;
 }

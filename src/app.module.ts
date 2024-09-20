@@ -8,12 +8,7 @@ import { LoggerMiddleware } from '@middlewares/Logger.middleware';
 /* Config */
 import { UseEnvironmentVariables } from '@config/env/env.enable';
 /* Modules */
-import { AuthModule } from '@modules/auth/auth.module';
-import { MenuModule } from '@modules/menu/menu.module';
-import { UsersModule } from '@modules/users/users.module';
-import { RolesModule } from '@modules/roles/roles/roles.module';
-import { PermissionsModule } from '@modules/roles/permissions/permissions.module';
-import { RolePermissionsModule } from '@modules/roles/role-permissions/role-permissions.module';
+import { appModules } from './app-modules';
 
 @Module({
   imports: [
@@ -22,12 +17,7 @@ import { RolePermissionsModule } from '@modules/roles/role-permissions/role-perm
     // configuración de TypeORM
     TypeOrmModule.forRoot(typeOrmConfig),
     /* Modules */
-    UsersModule,
-    AuthModule,
-    MenuModule,
-    RolesModule,
-    PermissionsModule,
-    RolePermissionsModule,
+    ...appModules,
   ],
   providers: [ Logger ],
 })
