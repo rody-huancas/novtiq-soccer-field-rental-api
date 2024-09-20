@@ -8,9 +8,9 @@ import { UseLoggerMiddlewareParams } from './interfaces'
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction): void {
-    const host = req.get('host') || '' // Obtener host
-    const userAgent = req.get('user-agent') || '' // Obtener agente
-    const contentType = req.get('content-type') || '' // Obtener tipo de contenido
+    const host        = req.get('host') || ''          // Obtener host
+    const userAgent   = req.get('user-agent') || ''    // Obtener agente
+    const contentType = req.get('content-type') || ''  // Obtener tipo de contenido
 
     res.on(
       'finish',
