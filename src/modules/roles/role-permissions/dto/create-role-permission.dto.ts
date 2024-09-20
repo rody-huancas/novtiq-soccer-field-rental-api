@@ -9,5 +9,5 @@ export class CreateRolePermissionDto {
 
   @IsUUID('4', { message: IS_UUID('ID del menú') })
   @IsOptional()
-  me_id?: string;
+  rp_menu_id?: string;
 }
