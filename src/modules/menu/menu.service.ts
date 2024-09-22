@@ -8,7 +8,8 @@ import { UpdateMenuDto } from './dto/update-menu.dto';
 /* Entities */
 import { Menu } from './entities/menu.entity';
 /* Utils */
-import { checkExistence } from '@root/src/utils/checkExistence';
+import { checkExistence } from '@utils/checkExistence';
+import { generateUrlFromString } from '@utils/functions';
 
 @Injectable()
 export class MenuService {
@@ -18,14 +19,18 @@ export class MenuService {
 
   async create(createMenuDto: CreateMenuDto) {
     try {
-      const { me_name, ...data } = createMenuDto;
+      const { me_name, me_url, ...data } = createMenuDto;
 
       /* Verificar si el nombre del menú ya existe */
       await checkExistence(this.menuRepository, 'me_name', me_name);
-      
-      const newMenu = await this.menuRepository.save({ ...data, me_name });
-      
-      return newMenu;
+
+      /* Generar la URL a partir del nombre del menú */
+      let url = me_url;
+      if (!url) url = generateUrlFromString(me_name);
+
+      await this.menuRepository.save({ ...data, me_name, me_url: url });
+
+      return { message: `El menú '${me_name}' ha sido creado correctamente.` };
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }

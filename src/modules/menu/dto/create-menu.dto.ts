@@ -12,7 +12,7 @@ export class CreateMenuDto {
   me_description: string;
 
   @IsString({ message: IS_STRING('URL') })
-  @IsNotEmpty({ message: IS_REQUIRED('URL') })
+  @IsOptional()
   me_url: string;
 
   @IsString({ message: IS_STRING('Icono') })
@@ -20,6 +20,6 @@ export class CreateMenuDto {
   me_icon: string;
 
   @IsBoolean({ message: IS_BOOLEAN('Estado') })
-  @IsNotEmpty({ message: IS_REQUIRED('Estado') })
+  @IsOptional()
   me_isActive: boolean;
 }
