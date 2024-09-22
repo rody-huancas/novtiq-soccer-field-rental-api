@@ -56,7 +56,7 @@ async function bootstrap() {
   await app.listen(PORT || 0, () => {
     console.log(
       '\x1b[33m%s\x1b[0m',
-      `[INFO] El servidor se ha iniciado en '${PUBLIC_URL}:${PORT}'`
+      `[INFO] El servidor se ha iniciado en '${PUBLIC_URL}'`
     )
   })
 

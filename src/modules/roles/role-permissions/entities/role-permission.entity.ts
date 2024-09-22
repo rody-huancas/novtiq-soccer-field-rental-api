@@ -9,7 +9,7 @@ export class RolePermission {
   rp_id: string;
 
   @Column({ type: 'uuid', nullable: false })
-  rp_role_id: string;
+  rp_menu_id: string;
 
   @Column({ type: 'uuid', nullable: false })
   rp_permission_id: string;
