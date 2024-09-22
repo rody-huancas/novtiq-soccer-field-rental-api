@@ -4,7 +4,7 @@
  * @param {string} str - La cadena de texto original.
  * @returns {string} La URL generada.
  */
-export const generateUrlFromString = (str: string): string => {
+export const generateUrl = (str: string): string => {
   let url = '/' + str.toLowerCase().replace(/\s+/g, '-');
 
   url = url.normalize('NFD').replace(/[\u0300-\u036f]/g, '');

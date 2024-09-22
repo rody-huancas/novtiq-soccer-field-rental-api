@@ -10,7 +10,7 @@ import { Menu } from '@modules/menu/entities/menu.entity';
 import { Permission } from '@modules/roles/permissions/entities/permission.entity';
 import { RolePermission } from './entities/role-permission.entity';
 /* Utils */
-import validateExistence from '@utils/validateExistence';
+import { validateExistence } from '@utils/validateExistence';
 
 @Injectable()
 export class RolePermissionsService {
