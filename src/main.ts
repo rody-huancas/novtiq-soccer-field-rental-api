@@ -59,6 +59,5 @@ async function bootstrap() {
       `[INFO] El servidor se ha iniciado en '${PUBLIC_URL}'`
     )
   })
-
-}
+} 
 bootstrap();
