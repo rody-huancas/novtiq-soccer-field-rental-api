@@ -10,7 +10,7 @@ import { Repository, FindOptionsWhere } from "typeorm";
  * @param entityName - El nombre de la entidad para el mensaje de error.
  * @throws {HttpException} - Si la entidad no existe.
  */
-const validateExistence = async <T>(repository: Repository<T>, id: string, field: keyof T, entityName: string): Promise<T> => {
+export const validateExistence = async <T>(repository: Repository<T>, id: string, field: keyof T, entityName: string): Promise<T> => {
   const where: FindOptionsWhere<T> = { [field]: id } as FindOptionsWhere<T>;
   const entity = await repository.findOne({ where });
   if (!entity) {
@@ -19,5 +19,3 @@ const validateExistence = async <T>(repository: Repository<T>, id: string, field
   
   return entity;
 };
-
-export default validateExistence;
