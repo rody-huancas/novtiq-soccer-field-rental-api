@@ -7,8 +7,10 @@ import { UpdatePermissionDto } from './dto/update-permission.dto';
 /* Entities */
 import { Permission } from './entities/permission.entity';
 /* Utils */
+import { ActionType } from '@utils/functions/types';
 import { checkExistence } from '@utils/checkExistence';
 import { validateExistence } from '@utils/validateExistence';
+import { createActionMessage } from '@utils/functions';
 
 @Injectable()
 export class PermissionsService {
@@ -25,14 +27,13 @@ export class PermissionsService {
     try {
       const { pe_name, ...data } = createPermissionDto;
 
-      /* Verificar si el nombre del permiso ya existe */
       await checkExistence(this.permissionRepository, 'pe_name', pe_name);
       
       await queryRunner.manager.save(Permission, { ...data, pe_name });
       
       await queryRunner.commitTransaction();
 
-      return { message: `El permiso '${pe_name}' ha sido creado correctamente.` };
+      return createActionMessage('permiso', pe_name, ActionType.Create);
     } catch (error) {
       await queryRunner.rollbackTransaction();
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
@@ -77,7 +78,7 @@ export class PermissionsService {
       await queryRunner.manager.save(permissionUpdated);
       await queryRunner.commitTransaction();
       
-      return { message: `El permiso '${permissionUpdated.pe_name}' ha sido actualizado correctamente.` };
+      return createActionMessage('permiso', permissionUpdated.pe_name, ActionType.Update);
     } catch (error) {
       await queryRunner.rollbackTransaction();
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
@@ -96,7 +97,7 @@ export class PermissionsService {
       await queryRunner.manager.delete(Permission, id);
       
       await queryRunner.commitTransaction();
-      return { message: `El permiso '${permission.pe_name}' ha sido eliminado correctamente.` };
+      return createActionMessage('permiso', permission.pe_name, ActionType.Delete);
     } catch (error) {
       await queryRunner.rollbackTransaction();
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
