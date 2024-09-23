@@ -55,7 +55,7 @@ export class User {
   us_password: string;
 
   @Column({ type: 'boolean', default: true })
-  us_status: boolean;
+  us_is_active: boolean;
 
   @Column({ type: 'uuid', nullable: false })
   us_role_id: string;

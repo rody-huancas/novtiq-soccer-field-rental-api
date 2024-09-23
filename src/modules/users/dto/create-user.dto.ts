@@ -65,7 +65,7 @@ export class CreateUserDto {
 
   @IsBoolean({ message: IS_BOOLEAN('Estado') })
   @IsNotEmpty({ message: IS_REQUIRED('Estado') })
-  us_status: boolean;
+  us_is_active: boolean;
 
   @IsUUID('4', { message: IS_UUID('Rol') })
   @IsNotEmpty({ message: IS_REQUIRED('Rol') })
