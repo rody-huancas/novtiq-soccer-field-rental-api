@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 /* Services */
 import { PermissionsService } from './permissions.service';
 /* DTOs */
@@ -7,7 +15,7 @@ import { UpdatePermissionDto } from './dto/update-permission.dto';
 /* Decorators */
 import { ValidateUUIDFormatPipe } from '@common/decorators/is-uuid-format.decorator';
 
-@Controller('roles/permissions')
+@Controller('permissions')
 export class PermissionsController {
   constructor(private readonly permissionsService: PermissionsService) {}
 
@@ -27,7 +35,10 @@ export class PermissionsController {
   }
 
   @Patch(':id')
-  update(@Param('id', ValidateUUIDFormatPipe) id: string, @Body() updatePermissionDto: UpdatePermissionDto) {
+  update(
+    @Param('id', ValidateUUIDFormatPipe) id: string,
+    @Body() updatePermissionDto: UpdatePermissionDto,
+  ) {
     return this.permissionsService.update(id, updatePermissionDto);
   }
 
