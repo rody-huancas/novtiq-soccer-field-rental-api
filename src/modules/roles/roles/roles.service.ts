@@ -7,8 +7,10 @@ import { UpdateRoleDto } from './dto/update-role.dto';
 /* Entities */
 import { Role } from './entities/role.entity';
 /* Utils */
+import { ActionType } from '@utils/functions/types';
 import { checkExistence } from '@utils/checkExistence';
 import { validateExistence } from '@utils/validateExistence';
+import { createActionMessage } from '@utils/functions';
 
 @Injectable()
 export class RolesService {
@@ -34,7 +36,7 @@ export class RolesService {
       await queryRunner.manager.save(role);
       await queryRunner.commitTransaction();
 
-      return { message: `El rol '${ro_name}' ha sido creado correctamente.` };
+      return createActionMessage('rol', role.ro_name, ActionType.Create);
     } catch (error) {
       await queryRunner.rollbackTransaction();
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
@@ -79,7 +81,7 @@ export class RolesService {
       await queryRunner.manager.save(roleUpdated);
       await queryRunner.commitTransaction();
       
-      return { message: `El rol '${ro_name}' ha sido actualizado correctamente.` };
+      return createActionMessage('rol', roleUpdated.ro_name, ActionType.Update);
     } catch (error) {
       await queryRunner.rollbackTransaction();
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
@@ -100,7 +102,7 @@ export class RolesService {
       await queryRunner.manager.delete(this.roleRepository.target, role.ro_id);
       await queryRunner.commitTransaction();
 
-      return { message: `Rol '${role.ro_name}' eliminado correctamente.` };
+      return createActionMessage('rol', role.ro_name, ActionType.Delete);
     } catch (error) {
       await queryRunner.rollbackTransaction();
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);

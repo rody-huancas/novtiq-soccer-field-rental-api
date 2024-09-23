@@ -10,7 +10,9 @@ import { Role } from '@modules/roles/roles/entities/role.entity';
 import { Permission } from '@modules/roles/permissions/entities/permission.entity';
 import { RolePermission } from './entities/role-permission.entity';
 /* Utils */
+import { ActionType } from '@utils/functions/types';
 import { validateExistence } from '@utils/validateExistence';
+import { createActionMessage } from '@utils/functions';
 
 @Injectable()
 export class RolePermissionsService {
@@ -40,7 +42,7 @@ export class RolePermissionsService {
       await queryRunner.manager.save(rolePermission);
       await queryRunner.commitTransaction();
       
-      return { message: 'Permiso de rol creado correctamente.' };
+      return createActionMessage('permiso de rol', rolePermission.rp_id, ActionType.Create);
     } catch (error) {
       await queryRunner.rollbackTransaction();
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
@@ -87,7 +89,7 @@ export class RolePermissionsService {
       await queryRunner.manager.save(rolePermissionUpdated);
       await queryRunner.commitTransaction();
       
-      return { message: 'Permiso de rol actualizado correctamente.' };
+      return createActionMessage('permiso de rol', rolePermissionUpdated.rp_id, ActionType.Update);
     } catch (error) {
       await queryRunner.rollbackTransaction();
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
@@ -103,12 +105,12 @@ export class RolePermissionsService {
     await queryRunner.startTransaction();
 
     try {
-      await this.findOne(id);
+      const rolePermission = await this.findOne(id);
       
       await queryRunner.manager.delete(this.rolePermissionsRepository.target, id);
       await queryRunner.commitTransaction();
 
-      return { message: 'Permiso de rol eliminado correctamente.' };
+      return createActionMessage('permiso de rol', rolePermission.role.ro_name, ActionType.Delete);
     } catch (error) {
       await queryRunner.rollbackTransaction();
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);

@@ -8,8 +8,10 @@ import { UpdateMenuDto } from './dto/update-menu.dto';
 /* Entities */
 import { Menu } from './entities/menu.entity';
 /* Utils */
+import { ActionType } from '@utils/functions/types';
 import { checkExistence } from '@utils/checkExistence';
 import { validateExistence } from '@utils/validateExistence';
+import { createActionMessage } from '@utils/functions';
 
 @Injectable()
 export class MenuService {
@@ -27,7 +29,6 @@ export class MenuService {
     try {
       const { me_name, ...data } = createMenuDto;
 
-      /* Verificar si el nombre del menú ya existe */
       await checkExistence(this.menuRepository, 'me_name', me_name);
 
       const menu = this.menuRepository.create({ me_name, ...data });
@@ -35,7 +36,7 @@ export class MenuService {
       await queryRunner.manager.save(menu);
       await queryRunner.commitTransaction();
 
-      return { message: `El menú '${me_name}' ha sido creado correctamente.` };
+      return createActionMessage('menú', menu.me_name, ActionType.Create);
     } catch (error) {
       await queryRunner.rollbackTransaction();
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
@@ -80,7 +81,7 @@ export class MenuService {
       await queryRunner.manager.save(menuUpdated);
       await queryRunner.commitTransaction();
 
-      return { message: `El menú '${me_name}' ha sido actualizado correctamente.` };
+      return createActionMessage('menú', menuUpdated.me_name, ActionType.Update);
     } catch (error) {
       await queryRunner.rollbackTransaction();
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
@@ -97,9 +98,11 @@ export class MenuService {
 
     try {
       const menu = await this.findOne(id);
+      
       await queryRunner.manager.delete(this.menuRepository.target, menu.me_id);
       await queryRunner.commitTransaction();
-      return { message: `Menú '${menu.me_name}' eliminado correctamente.` };
+      
+      return createActionMessage('menú', menu.me_name, ActionType.Delete);
     } catch (error) {
       await queryRunner.rollbackTransaction();
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
