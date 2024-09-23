@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsUUID } from 'class-validator';
+import { IsNotEmpty, IsUUID } from 'class-validator';
 /* Utils */
 import { IS_REQUIRED, IS_UUID } from '@lib/class-validator/messages-validation';
 
@@ -8,6 +8,6 @@ export class CreateRolePermissionDto {
   rp_permission_id: string;
 
   @IsUUID('4', { message: IS_UUID('ID del menú') })
-  @IsOptional()
-  rp_menu_id?: string;
+  @IsNotEmpty({ message: IS_REQUIRED('ID del menú') })
+  rp_menu_id: string;
 }

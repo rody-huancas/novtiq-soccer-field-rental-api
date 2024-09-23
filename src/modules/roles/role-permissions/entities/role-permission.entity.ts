@@ -14,11 +14,12 @@ export class RolePermission {
   @Column({ type: 'uuid', nullable: false })
   rp_permission_id: string;
 
+  /* Relationships */
   @ManyToOne(() => Menu)
-  @JoinColumn({ name: 'me_id' })
+  @JoinColumn({ name: 'rp_menu_id' })
   menu: Menu; 
 
   @ManyToOne(() => Permission)
-  @JoinColumn({ name: 'pe_id' })
+  @JoinColumn({ name: 'rp_permission_id' })
   permission: Permission;
 }
