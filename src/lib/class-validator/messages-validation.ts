@@ -81,3 +81,7 @@ export function IS_MIN_VALUE(field: string, min: number) {
 export function IS_MAX_VALUE(field: string, max: number) {
   return `[${field}] Este campo debe tener máximo ${max} caracteres`
 }
+
+export function IS_URL(field: string) {
+  return `[${field}] Este campo debe ser una URL válida`
+}
