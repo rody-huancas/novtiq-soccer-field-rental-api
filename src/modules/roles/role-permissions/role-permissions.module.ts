@@ -8,6 +8,7 @@ import { RolePermissionsService } from './role-permissions.service';
 import { RolePermissionsController } from './role-permissions.controller';
 /* Modules */
 import { MenuModule } from '@modules/menu/menu.module';
+import { RolesModule } from '@modules/roles/roles/roles.module';
 import { PermissionsModule } from '@modules/roles/permissions/permissions.module';
 
 @Module({
@@ -17,6 +18,7 @@ import { PermissionsModule } from '@modules/roles/permissions/permissions.module
     TypeOrmModule.forFeature([ RolePermission ]),
     PermissionsModule,
     MenuModule,
+    RolesModule,
   ],
   exports: [ TypeOrmModule ],
 })
