@@ -90,12 +90,21 @@ export class MenuService {
   }
 
   async remove(id: string) {
+    const queryRunner = this.dataSource.createQueryRunner();
+
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
     try {
       const menu = await this.findOne(id);
-      await this.menuRepository.delete(menu.me_id);
+      await queryRunner.manager.delete(this.menuRepository.target, menu.me_id);
+      await queryRunner.commitTransaction();
       return { message: `Menú '${menu.me_name}' eliminado correctamente.` };
     } catch (error) {
+      await queryRunner.rollbackTransaction();
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    } finally {
+      await queryRunner.release();
     }
   }
 }
