@@ -1,6 +1,12 @@
 import { Controller, Post, Body, Get } from '@nestjs/common';
+/* Services */
 import { AuthService } from './auth.service';
+/* DTO */
 import { LoginDto } from './dto/login.dto';
+/* Entities */
+import { User } from '../users/entities/user.entity';
+/* Decorators */
+import { Auth, GetUser } from './decorators';
 
 @Controller('auth')
 export class AuthController {
@@ -12,7 +18,8 @@ export class AuthController {
   }
 
   @Get('check-status')
-  checkStatus() {
-    return this.authService.checkStatus();
+  @Auth()
+  checkStatus(@GetUser() user: User ) {
+    return this.authService.checkAuthStatus(user);
   }
 }

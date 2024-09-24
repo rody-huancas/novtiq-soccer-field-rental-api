@@ -1,21 +1,15 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 /* Services */
 import { PermissionsService } from './permissions.service';
 /* DTOs */
 import { CreatePermissionDto } from './dto/create-permission.dto';
 import { UpdatePermissionDto } from './dto/update-permission.dto';
 /* Decorators */
+import { Auth } from '@modules/auth/decorators';
 import { ValidateUUIDFormatPipe } from '@common/decorators/is-uuid-format.decorator';
 
 @Controller('permissions')
+@Auth()
 export class PermissionsController {
   constructor(private readonly permissionsService: PermissionsService) {}
 
