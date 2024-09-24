@@ -16,7 +16,7 @@ export class Menu {
   @Column({ type: 'varchar', length: 255, nullable: true })
   me_url: string;
 
-  @Column({ type: 'varchar', length: 255, nullable: false })
+  @Column({ type: 'text', nullable: false })
   me_icon: string;
 
   @Column({ type: 'boolean', default: true })
