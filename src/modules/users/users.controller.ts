@@ -5,9 +5,11 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 /* Decorators */
+import { Auth } from '@modules/auth/decorators';
 import { ValidateUUIDFormatPipe } from '@common/decorators/is-uuid-format.decorator';
 
 @Controller('users')
+@Auth()
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 

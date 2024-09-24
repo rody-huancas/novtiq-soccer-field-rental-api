@@ -5,9 +5,11 @@ import { RolePermissionsService } from './role-permissions.service';
 import { CreateRolePermissionDto } from './dto/create-role-permission.dto';
 import { UpdateRolePermissionDto } from './dto/update-role-permission.dto';
 /* Decorators */
+import { Auth } from '@modules/auth/decorators';
 import { ValidateUUIDFormatPipe } from '@common/decorators/is-uuid-format.decorator';
 
 @Controller('role-permissions')
+@Auth()
 export class RolePermissionsController {
   constructor(private readonly rolePermissionsService: RolePermissionsService) {}
 

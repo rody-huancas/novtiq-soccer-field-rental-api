@@ -20,7 +20,7 @@ import { User } from '@modules/users/entities/user.entity';
   imports    : [
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
-      imports: [ ConfigModule ],
+      imports: [ ConfigModule  ],
       inject : [ ConfigService ],
       useFactory: () => {
         return {

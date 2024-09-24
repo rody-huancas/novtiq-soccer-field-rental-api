@@ -5,9 +5,11 @@ import { MenuService } from './menu.service';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
 /* Decorators */
+import { Auth } from '@modules/auth/decorators';
 import { ValidateUUIDFormatPipe } from '@common/decorators/is-uuid-format.decorator';
 
 @Controller('menu')
+@Auth()
 export class MenuController {
   constructor(private readonly menuService: MenuService) {}
 
